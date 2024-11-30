@@ -1,0 +1,35 @@
+{
+  "exports": "./src/index.ts",
+  "compilerOptions": {
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true
+  },
+  "tasks": {
+    "dev": "deno run -A --watch=src ./scripts/build.ts",
+    "build": "deno run -A ./scripts/build.ts",
+    "format": "deno fmt",
+    "format:fail": "deno fmt --check",
+    "lint": "deno lint --fix",
+    "lint:fail": "deno lint",
+    "test": "deno test -A",
+    "test:watch": "deno test -A --watch",
+    "type": "deno check **/*.ts",
+    "check": "deno task format:fail && deno task lint:fail && deno task type && deno task test",
+    "release": "deno task build && deno run -A --reload https://raw.githubusercontent.com/globalbrain/hado/main/scripts/release.ts",
+    "update": "deno run -A --reload https://raw.githubusercontent.com/globalbrain/hado/main/scripts/update.ts"
+  },
+  "fmt": {
+    "lineWidth": 100,
+    "proseWrap": "preserve",
+    "semiColons": false,
+    "singleQuote": true
+  },
+  "imports": {
+    "@luca/esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@^0.11.0",
+    "@std/assert": "jsr:@std/assert@^1.0.8",
+    "@std/cli": "jsr:@std/cli@^1.0.7",
+    "esbuild": "npm:esbuild@^0.24.0",
+    "prettier": "npm:prettier@^3.4.1"
+  }
+}
