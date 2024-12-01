@@ -5,6 +5,10 @@ import { assertEquals } from '@std/assert'
 Deno.test('plugin', async (t) => {
   await t.step('should format vue in markdown', async () => {
     const code = `
+---
+yaml:  frontmatter
+---
+
 #  *Test*
 
 ## 1
@@ -13,7 +17,7 @@ Deno.test('plugin', async (t) => {
 
 ## 2
 
- <ul> <li v-for="item in items" :key="item.id">{{ item.name }}</li> </ul>
+ <template v-for="item in items" :key="item.id"> <p>{{  item.name  }}</p> </template>
 
 ## 3
 
@@ -25,14 +29,30 @@ Deno.test('plugin', async (t) => {
 
 ## 5
 
-<script setup lang="ts">import { defineProps } from 'vue'; const props = defineProps<{ name: string, age: number }>();</script>
+  <script setup lang="ts">import { defineProps } from 'vue'; const props = defineProps<{ name: string, age: number }>();</script>
 
 ## 6
 
-<style scoped>h1 { color: red; }</style>
+  <style scoped>h1 { color: red; }</style>
+
+## 7
+
+Inline vue code <strong>  {{  item.name  }}  </strong> <em>  italic  </em> <pre>  code  </pre>
+
+## 8
+
+Comments <!-- comment -->
+
+<!-- multiline
+comment
+-->
 `
 
     const expected = `
+---
+yaml: frontmatter
+---
+
 # _Test_
 
 ## 1
@@ -46,9 +66,9 @@ Deno.test('plugin', async (t) => {
 
 ## 2
 
-<ul>
-  <li v-for="item in items" :key="item.id">{{ item.name }}</li>
-</ul>
+<template v-for="item in items" :key="item.id">
+  <p>{{ item.name }}</p>
+</template>
 
 ## 3
 
@@ -82,6 +102,18 @@ h1 {
   color: red;
 }
 </style>
+
+## 7
+
+Inline vue code <strong> {{ item.name }} </strong> <em> italic </em> <pre>  code  </pre>
+
+## 8
+
+Comments <!-- comment -->
+
+<!-- multiline
+comment
+-->
 `.trimStart()
 
     const result = await prettier.format(code, {
@@ -92,3 +124,6 @@ h1 {
     assertEquals(result, expected)
   })
 })
+
+// TODO:
+// - handle liquidNode (tc 7)
