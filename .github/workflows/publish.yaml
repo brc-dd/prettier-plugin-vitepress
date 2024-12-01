@@ -13,14 +13,11 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
-          registry-url: https://registry.npmjs.org
       - uses: denoland/setup-deno@v2
       - run: deno task build --minify ${GITHUB_REF#refs/tags/v}
-      - run: cd dist && pnpm publish --access public
+      - run: cd dist && npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
