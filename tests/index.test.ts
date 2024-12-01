@@ -46,6 +46,21 @@ Comments <!-- comment -->
 <!-- multiline
 comment
 -->
+
+## 9
+
+<Example>
+<template #example>
+<progress class="unstyled"></progress>
+</template>
+<template #code>
+
+\`\`\`html
+<progress></progress>
+\`\`\`
+
+</template>
+</Example>
 `
 
     const expected = `
@@ -114,6 +129,21 @@ Comments <!-- comment -->
 <!-- multiline
 comment
 -->
+
+## 9
+
+<Example>
+<template #example>
+  <progress class="unstyled"></progress>
+</template>
+<template #code>
+
+\`\`\`html
+<progress></progress>
+\`\`\`
+
+</template>
+</Example>
 `.trimStart()
 
     const result = await prettier.format(code, {
@@ -127,3 +157,4 @@ comment
 
 // TODO:
 // - handle liquidNode (tc 7)
+// - handle markdown in vue (tc 9)
