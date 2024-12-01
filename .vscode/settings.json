@@ -1,6 +1,6 @@
 {
   "deno.enable": true,
-  "deno.disablePaths": ["./npm"],
+  "deno.disablePaths": ["./dist"],
   "[javascript]": { "editor.defaultFormatter": "denoland.vscode-deno" },
   "[javascriptreact]": { "editor.defaultFormatter": "denoland.vscode-deno" },
   "[typescript]": { "editor.defaultFormatter": "denoland.vscode-deno" },

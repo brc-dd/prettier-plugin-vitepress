@@ -1,6 +1,6 @@
 import type { Literal } from 'npm:@types/unist@2'
 import type { AstPath, Parser, Plugin, Printer } from 'prettier'
-import { builders, printer, utils } from 'prettier/doc'
+import { type builders, printer, utils } from 'prettier/doc'
 import _md from 'prettier/plugins/markdown'
 
 const md = _md as unknown as Plugin & {
@@ -10,7 +10,7 @@ const md = _md as unknown as Plugin & {
 
 const wrappedRE = /^\s*<(script|style)\b/
 
-export default {
+const plugin: Plugin = {
   ...md,
   parsers: {
     ...md.parsers,
@@ -55,7 +55,7 @@ export default {
       },
     },
   },
-} satisfies Plugin
+}
 
 function findGroup(
   doc: builders.Doc,
@@ -71,3 +71,5 @@ function findGroup(
   })
   return result
 }
+
+export default plugin

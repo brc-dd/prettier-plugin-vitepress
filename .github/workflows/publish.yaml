@@ -18,7 +18,7 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org
       - uses: denoland/setup-deno@v2
-      - run: deno task build --minify ${GITHUB_REF#refs/tags/v}
+      - run: deno task build
       - run: cd dist && npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
