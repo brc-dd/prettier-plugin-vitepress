@@ -23,7 +23,10 @@ export default {
 
       embed: (path: AstPath<Literal<string>>, options) => {
         const { node } = path
-        if (node.type !== 'jsx') return md.printers.mdast.embed(path, options)
+
+        if (node.type !== 'jsx' && node.type !== 'liquidNode') {
+          return md.printers.mdast.embed(path, options)
+        }
 
         return async (textToDoc) => {
           const isWrapped = !wrappedRE.test(node.value)
@@ -41,7 +44,6 @@ export default {
           if (!doc2) return doc0
 
           doc1.contents = doc2.contents
-
           return doc0
         }
       },

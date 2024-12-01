@@ -37,7 +37,13 @@ yaml:  frontmatter
 
 ## 7
 
-Inline vue code <strong>  {{  item.name  }}  </strong> <em>  italic  </em> <pre>  code  </pre>
+Inline vue code - longer line - <strong>  {{  item.name  }}  </strong> <em>  italic  </em>
+
+Shorter line - {{
+  item.name
+}}
+
+<pre>  code  </pre>
 
 ## 8
 
@@ -49,6 +55,7 @@ comment
 
 ## 9
 
+<div>
 <Example>
 <template #example>
 <progress class="unstyled"></progress>
@@ -61,6 +68,7 @@ comment
 
 </template>
 </Example>
+</div>
 `
 
     const expected = `
@@ -120,7 +128,13 @@ h1 {
 
 ## 7
 
-Inline vue code <strong> {{ item.name }} </strong> <em> italic </em> <pre>  code  </pre>
+Inline vue code - longer line - <strong> {{
+  item.name
+}} </strong> <em> italic </em>
+
+Shorter line - {{ item.name }}
+
+<pre>  code  </pre>
 
 ## 8
 
@@ -132,6 +146,7 @@ comment
 
 ## 9
 
+<div>
 <Example>
 <template #example>
   <progress class="unstyled"></progress>
@@ -144,6 +159,7 @@ comment
 
 </template>
 </Example>
+</div>
 `.trimStart()
 
     const result = await prettier.format(code, {
@@ -156,5 +172,4 @@ comment
 })
 
 // TODO:
-// - handle liquidNode (tc 7)
 // - handle markdown in vue (tc 9)
