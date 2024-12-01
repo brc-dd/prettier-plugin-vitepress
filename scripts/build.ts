@@ -14,12 +14,18 @@ if (!version) {
   Deno.exit(1)
 }
 
-await Deno.remove('npm', { recursive: true })
+try {
+  await Deno.remove('dist', { recursive: true })
+} catch (err) {
+  if (!(err instanceof Deno.errors.NotFound)) {
+    throw err
+  }
+}
 
 await esbuild.build({
   plugins: [...denoPlugins()],
   entryPoints: ['src/index.ts'],
-  outfile: 'npm/index.js',
+  outfile: 'dist/index.js',
   bundle: true,
   format: 'esm',
   external: ['prettier'],
@@ -27,7 +33,7 @@ await esbuild.build({
 })
 
 await Deno.writeTextFile(
-  'npm/package.json',
+  'dist/package.json',
   JSON.stringify({
     name: 'prettier-plugin-vitepress',
     version,
@@ -49,5 +55,5 @@ await Deno.writeTextFile(
   }),
 )
 
-await Deno.copyFile('LICENSE.md', 'npm/LICENSE.md')
-await Deno.copyFile('README.md', 'npm/README.md')
+await Deno.copyFile('LICENSE.md', 'dist/LICENSE.md')
+await Deno.copyFile('README.md', 'dist/README.md')

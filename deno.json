@@ -16,7 +16,7 @@
     "test:watch": "deno test -A --watch",
     "type": "deno check **/*.ts",
     "check": "deno task format:fail && deno task lint:fail && deno task type && deno task test",
-    "release": "deno task build && deno run -A --reload https://raw.githubusercontent.com/globalbrain/hado/main/scripts/release.ts",
+    "release": "deno run -A --reload https://raw.githubusercontent.com/globalbrain/hado/main/scripts/release.ts",
     "update": "deno run -A --reload https://raw.githubusercontent.com/globalbrain/hado/main/scripts/update.ts"
   },
   "fmt": {
