@@ -149,7 +149,7 @@ comment
 <div>
 <Example>
 <template #example>
-  <progress class="unstyled"></progress>
+<progress class="unstyled"></progress>
 </template>
 <template #code>
 

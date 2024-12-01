@@ -1,6 +1,6 @@
 import type { Literal } from 'npm:@types/unist@2'
 import type { AstPath, Parser, Plugin, Printer } from 'prettier'
-import { builders, utils } from 'prettier/doc'
+import { builders, printer, utils } from 'prettier/doc'
 import _md from 'prettier/plugins/markdown'
 
 const md = _md as unknown as Plugin & {
@@ -24,7 +24,7 @@ export default {
       embed: (path: AstPath<Literal<string>>, options) => {
         const { node } = path
 
-        if (node.type !== 'jsx' && node.type !== 'liquidNode') {
+        if ((node.type !== 'jsx' && node.type !== 'liquidNode') || node.value.includes('\uFFFF')) {
           return md.printers.mdast.embed(path, options)
         }
 
@@ -32,7 +32,7 @@ export default {
           const isWrapped = !wrappedRE.test(node.value)
 
           const doc0 = await textToDoc(
-            isWrapped ? `<template>${node.value}</template>` : node.value,
+            isWrapped ? `<template>\n${node.value}\n\uFFFF\n</template>` : node.value,
             { parser: 'vue' },
           )
           if (!isWrapped) return doc0
@@ -44,7 +44,13 @@ export default {
           if (!doc2) return doc0
 
           doc1.contents = doc2.contents
-          return doc0
+
+          const { formatted } = printer.printDocToString(doc1, options as Required<typeof options>)
+          if (!formatted.includes('\uFFFF')) return doc0
+
+          return node.value // skip formatting something went wrong
+
+          // return formatted.split('\uFFFF')[0]?.replace(/^\s{2}/gm, '')
         }
       },
     },
