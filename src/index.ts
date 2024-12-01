@@ -14,6 +14,8 @@ const plugin: Plugin = {
   ...md,
   parsers: {
     ...md.parsers,
+    // TODO: only keep blocks rule, disable others
+    // (currently messing up text containing import/export)
     markdown: md.parsers.mdx,
   },
   printers: {
