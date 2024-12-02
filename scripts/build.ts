@@ -18,6 +18,7 @@ await esbuild.build({
   format: 'esm',
   external: ['prettier'],
   minify: !!Deno.env.get('CI'),
+  target: 'node18',
 })
 
 await Deno.writeTextFile(

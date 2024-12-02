@@ -69,6 +69,21 @@ comment
 </template>
 </Example>
 </div>
+
+## 10
+
+- export \`foo()\` (some long text here, this should not be treated as es export statement)
+
+## 11
+
+\`\`\`md
+<a  href="/pure.html"  target="_self" >Link to pure.html</a>
+\`\`\`
+
+## 12
+
+attrs {target="_self"  #id}
+attrs {target="_self"}
 `
 
     const expected = `
@@ -160,6 +175,21 @@ comment
 </template>
 </Example>
 </div>
+
+## 10
+
+- export \`foo()\` (some long text here, this should not be treated as es export statement)
+
+## 11
+
+\`\`\`md
+<a href="/pure.html" target="_self">Link to pure.html</a>
+\`\`\`
+
+## 12
+
+attrs {target="_self" #id}
+attrs {target="_self"}
 `.trimStart()
 
     const result = await prettier.format(code, {

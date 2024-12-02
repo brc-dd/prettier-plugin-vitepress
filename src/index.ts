@@ -21,6 +21,11 @@ const plugin: Plugin = {
       embed: (path: AstPath<Literal<string>>, options) => {
         const { node } = path
 
+        if (node.type === 'word' && (node.value.at(0) === '{' || node.value.at(-1) === '}')) {
+          // attr (FIXME: do better parsing)
+          return node.value
+        }
+
         if ((node.type !== 'jsx' && node.type !== 'liquidNode') || node.value.includes('\uFFFF')) {
           return md.printers.mdast.embed(path, options)
         }
@@ -47,6 +52,7 @@ const plugin: Plugin = {
 
           return node.value // skip formatting something went wrong
 
+          // markdown in vue
           // return formatted.split('\uFFFF')[0]?.replace(/^\s{2}/gm, '')
         }
       },
