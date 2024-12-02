@@ -1,4 +1,5 @@
 import { Lang, parse } from '@ast-grep/napi'
+import { ensureDir } from '@std/fs'
 import denoJson from '../deno.json' with { type: 'json' }
 
 const version = denoJson.imports.prettier.split('@')[1]
@@ -18,13 +19,7 @@ const n2$D = node2.getMatch('D')!.text()
 const edit1 = node2.replace(`${n2$A}.use(${n2$D}).use`)
 const transformed = root.commitEdits([edit1]).toString()
 
-try {
-  await Deno.mkdir('./vendor', { recursive: true })
-} catch (err) {
-  if (!(err instanceof Deno.errors.AlreadyExists)) {
-    throw err
-  }
-}
+await ensureDir('vendor')
 
 await Deno.writeTextFile('./vendor/prettier-plugin-markdown.js', transformed)
 await Deno.writeTextFile(

@@ -5,8 +5,10 @@
     "jsr:@std/assert@^1.0.8": "1.0.8",
     "jsr:@std/bytes@^1.0.2": "1.0.4",
     "jsr:@std/encoding@^1.0.5": "1.0.5",
+    "jsr:@std/fs@^1.0.6": "1.0.6",
     "jsr:@std/internal@^1.0.5": "1.0.5",
     "jsr:@std/path@^1.0.6": "1.0.8",
+    "jsr:@std/path@^1.0.8": "1.0.8",
     "npm:@ast-grep/napi@0.31": "0.31.0",
     "npm:@types/unist@2": "2.0.11",
     "npm:esbuild@0.24": "0.24.0",
@@ -20,7 +22,7 @@
       "dependencies": [
         "jsr:@std/bytes",
         "jsr:@std/encoding",
-        "jsr:@std/path"
+        "jsr:@std/path@^1.0.6"
       ]
     },
     "@std/assert@1.0.8": {
@@ -34,6 +36,12 @@
     },
     "@std/encoding@1.0.5": {
       "integrity": "ecf363d4fc25bd85bd915ff6733a7e79b67e0e7806334af15f4645c569fefc04"
+    },
+    "@std/fs@1.0.6": {
+      "integrity": "42b56e1e41b75583a21d5a37f6a6a27de9f510bcd36c0c85791d685ca0b85fa2",
+      "dependencies": [
+        "jsr:@std/path@^1.0.8"
+      ]
     },
     "@std/internal@1.0.5": {
       "integrity": "54a546004f769c1ac9e025abd15a76b6671ddc9687e2313b67376125650dc7ba"
@@ -298,6 +306,7 @@
     "dependencies": [
       "jsr:@luca/esbuild-deno-loader@0.11",
       "jsr:@std/assert@^1.0.8",
+      "jsr:@std/fs@^1.0.6",
       "npm:@ast-grep/napi@0.31",
       "npm:esbuild@0.24",
       "npm:prettier@^3.4.1",

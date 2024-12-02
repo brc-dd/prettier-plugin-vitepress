@@ -1,16 +1,10 @@
 import { denoPlugins } from '@luca/esbuild-deno-loader'
+import { emptyDir } from '@std/fs'
 import * as esbuild from 'esbuild'
 import tsid from 'unplugin-isolated-decl/esbuild'
 import denoJson from '../deno.json' with { type: 'json' }
 
-try {
-  await Deno.remove('dist', { recursive: true })
-  await Deno.mkdir('dist')
-} catch (err) {
-  if (!(err instanceof Deno.errors.NotFound)) {
-    throw err
-  }
-}
+await emptyDir('dist')
 
 await esbuild.build({
   plugins: [
