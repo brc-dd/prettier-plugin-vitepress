@@ -1,3 +1,9 @@
+## [0.0.5](https://github.com/brc-dd/prettier-plugin-vitepress/compare/v0.0.4...v0.0.5) (2024-12-02)
+
+### Bug Fixes
+
+- don't format mdit attributes ([8b5e9a0](https://github.com/brc-dd/prettier-plugin-vitepress/commit/8b5e9a03edfcfe85defcc25d19dfe52da43dd41f))
+
 ## [0.0.4](https://github.com/brc-dd/prettier-plugin-vitepress/compare/v0.0.3...v0.0.4) (2024-12-02)
 
 ### Bug Fixes
