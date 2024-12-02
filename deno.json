@@ -20,7 +20,7 @@
     "check": "deno task patch && deno task format:fail && deno task lint:fail && deno task type && deno task test",
     "patch": "deno run -A ./scripts/patch.ts",
     "release": "deno run -A --reload https://raw.githubusercontent.com/globalbrain/hado/main/scripts/release.ts",
-    "update": "deno run -A --reload https://raw.githubusercontent.com/globalbrain/hado/main/scripts/update.ts && deno install"
+    "update": "deno run -A --reload https://raw.githubusercontent.com/globalbrain/hado/main/scripts/update.ts"
   },
   "fmt": {
     "lineWidth": 100,
