@@ -7,6 +7,7 @@
     "jsr:@std/encoding@^1.0.5": "1.0.5",
     "jsr:@std/internal@^1.0.5": "1.0.5",
     "jsr:@std/path@^1.0.6": "1.0.8",
+    "npm:@ast-grep/napi@~0.30.1": "0.30.1",
     "npm:@types/unist@2": "2.0.11",
     "npm:esbuild@0.24": "0.24.0",
     "npm:prettier@^3.4.1": "3.4.1"
@@ -40,6 +41,47 @@
     }
   },
   "npm": {
+    "@ast-grep/napi-darwin-arm64@0.30.1": {
+      "integrity": "sha512-U6e+ROuK0ff7IjEHQUbBDCHadySCKT1tCCNo9tSMdYBfLgWeYGQlbOfDdIa0zUgtPuqRJhIAMKNqUfljh3Z2oQ=="
+    },
+    "@ast-grep/napi-darwin-x64@0.30.1": {
+      "integrity": "sha512-368LWFPTjjuXy//0guWTpCPRqLd2WfpM2h1CaOJzXFvaHHk6inKMpqomXBZ/yqdnHp7wTgFyRpRndOrywx4oRg=="
+    },
+    "@ast-grep/napi-linux-arm64-gnu@0.30.1": {
+      "integrity": "sha512-UY60qmXnv5XC/YDuib73bsrX41Y6TUgMTqLwHBwq4DgX0xS0KTpX89g+FCYEyTRdEOxoi8Emy+EXoSozftD3qw=="
+    },
+    "@ast-grep/napi-linux-arm64-musl@0.30.1": {
+      "integrity": "sha512-e85ILKJg9W10zvsOIY90UIAYi9jCZ+8d1COfex0M9HF+dSiDCqRmvR9YKrA5VFtfrsKpL+8tm5Dso6j/Xf7XAA=="
+    },
+    "@ast-grep/napi-linux-x64-gnu@0.30.1": {
+      "integrity": "sha512-3sJgurAlsNKhEKeZWio/JWZLzUhMMGeN4maJlPsqnpJjAw5E2dk3S8jwq0zLT4xlhFtHGrRMGO0jZtsc0YO2Hw=="
+    },
+    "@ast-grep/napi-linux-x64-musl@0.30.1": {
+      "integrity": "sha512-KnGBolF2VzQ5qMyzfIa2rlRIA+6XJJsSY0xvBMB1kJJCxSWCkME6vNIKJZvvT1vhMGKXST3xfyuDSYNGLsrcsw=="
+    },
+    "@ast-grep/napi-win32-arm64-msvc@0.30.1": {
+      "integrity": "sha512-NkeBM4d3OCos54H9ALCL0oKWpyh+OMXvz4rcNj7dydXdJ5DJsABrMOcEsKgX52eazJKcf1AsmVxRmV2yjEHNmw=="
+    },
+    "@ast-grep/napi-win32-ia32-msvc@0.30.1": {
+      "integrity": "sha512-V30W+urqyhirRNHRMRaiyB0dIK1CBvDRG7EjqRHCVXRAWjHhttPvj5xKYcrlUxIEaZK/WwHSC6cddJcxhwjE8w=="
+    },
+    "@ast-grep/napi-win32-x64-msvc@0.30.1": {
+      "integrity": "sha512-yxQaOVynLbE3pSZWICcNMibQJwLkhs00/1hEwOGGr/UEI574QA1u4ypMiSfu8NMFnmZt2na5o4aDSP976FOSug=="
+    },
+    "@ast-grep/napi@0.30.1": {
+      "integrity": "sha512-uYsFl46kr1M/ZnyQvaOcySwjr5Bw+2RWK0YP9TelltvKYhQefRIEcDUDNNqvfCr6EqLXb52YkfydCXOmG11vWg==",
+      "dependencies": [
+        "@ast-grep/napi-darwin-arm64",
+        "@ast-grep/napi-darwin-x64",
+        "@ast-grep/napi-linux-arm64-gnu",
+        "@ast-grep/napi-linux-arm64-musl",
+        "@ast-grep/napi-linux-x64-gnu",
+        "@ast-grep/napi-linux-x64-musl",
+        "@ast-grep/napi-win32-arm64-msvc",
+        "@ast-grep/napi-win32-ia32-msvc",
+        "@ast-grep/napi-win32-x64-msvc"
+      ]
+    },
     "@esbuild/aix-ppc64@0.24.0": {
       "integrity": "sha512-WtKdFM7ls47zkKHFVzMz8opM7LkcsIp9amDUBIAWirg70RM71WRSjdILPsY5Uv1D42ZpUfaPILDlfactHgsRkw=="
     },
@@ -152,6 +194,7 @@
     "dependencies": [
       "jsr:@luca/esbuild-deno-loader@0.11",
       "jsr:@std/assert@^1.0.8",
+      "npm:@ast-grep/napi@~0.30.1",
       "npm:esbuild@0.24",
       "npm:prettier@^3.4.1"
     ]

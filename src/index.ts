@@ -1,12 +1,9 @@
 import type { Literal } from 'npm:@types/unist@2'
-import type { AstPath, Parser, Plugin, Printer } from 'prettier'
+import type { AstPath, Plugin } from 'prettier'
 import { type builders, printer, utils } from 'prettier/doc'
-import _md from 'prettier/plugins/markdown'
 
-const md = _md as unknown as Plugin & {
-  parsers: Record<'markdown' | 'mdx' | 'remark', Parser>
-  printers: { mdast: Printer & Required<Pick<Printer, 'embed'>> }
-}
+// @deno-types="../vendor/prettier-plugin-markdown.d.ts"
+import md from '../vendor/prettier-plugin-markdown.js'
 
 const wrappedRE = /^\s*<(script|style)\b/
 
@@ -14,8 +11,6 @@ const plugin: Plugin = {
   ...md,
   parsers: {
     ...md.parsers,
-    // TODO: only keep blocks rule, disable others
-    // (currently messing up text containing import/export)
     markdown: md.parsers.mdx,
   },
   printers: {
