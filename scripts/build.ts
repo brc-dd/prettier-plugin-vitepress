@@ -16,9 +16,10 @@ await esbuild.build({
   outfile: 'dist/index.js',
   bundle: true,
   format: 'esm',
+  platform: 'neutral',
+  target: 'es2022',
   external: ['prettier'],
   minify: !!Deno.env.get('CI'),
-  target: 'node18',
 })
 
 await Deno.writeTextFile(
