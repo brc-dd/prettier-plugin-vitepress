@@ -1,3 +1,10 @@
+## [0.0.4](https://github.com/brc-dd/prettier-plugin-vitepress/compare/v0.0.3...v0.0.4) (2024-12-02)
+
+### Bug Fixes
+
+- don't parse import/export statements in text ([c2edb6c](https://github.com/brc-dd/prettier-plugin-vitepress/commit/c2edb6c912e543d32a280aaef696e7669f673eaa))
+- slow types ([f083ff5](https://github.com/brc-dd/prettier-plugin-vitepress/commit/f083ff5e6c2ca351f9a0016b44a7b7cf66bb29ac))
+
 ## [0.0.3](https://github.com/brc-dd/prettier-plugin-vitepress/compare/v0.0.2...v0.0.3) (2024-12-01)
 
 ### Features
