@@ -1,9 +1,11 @@
 import { denoPlugins } from '@luca/esbuild-deno-loader'
 import * as esbuild from 'esbuild'
+import tsid from 'unplugin-isolated-decl/esbuild'
 import denoJson from '../deno.json' with { type: 'json' }
 
 try {
   await Deno.remove('dist', { recursive: true })
+  await Deno.mkdir('dist')
 } catch (err) {
   if (!(err instanceof Deno.errors.NotFound)) {
     throw err
@@ -11,9 +13,12 @@ try {
 }
 
 await esbuild.build({
-  plugins: [...denoPlugins()],
+  plugins: [
+    tsid(),
+    ...denoPlugins(),
+  ],
   entryPoints: [denoJson.exports],
-  outfile: 'dist/index.js',
+  outdir: 'dist',
   bundle: true,
   format: 'esm',
   platform: 'neutral',
@@ -48,4 +53,4 @@ await Deno.writeTextFile(
 await Deno.copyFile('LICENSE.md', 'dist/LICENSE.md')
 await Deno.copyFile('README.md', 'dist/README.md')
 
-// TODO: make it more generic, emit dts files too
+// TODO: make it more generic
