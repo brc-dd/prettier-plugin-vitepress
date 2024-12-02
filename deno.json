@@ -1,8 +1,13 @@
 {
   "name": "prettier-plugin-vitepress",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "a prettier plugin to format vue in markdown syntax used in vitepress",
-  "keywords": ["prettier", "vitepress", "vue", "markdown"],
+  "keywords": [
+    "prettier",
+    "vitepress",
+    "vue",
+    "markdown"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/brc-dd/prettier-plugin-vitepress.git"

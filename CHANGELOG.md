@@ -1,3 +1,9 @@
+## [0.0.6](https://github.com/brc-dd/prettier-plugin-vitepress/compare/v0.0.5...v0.0.6) (2024-12-02)
+
+### Features
+
+- emit type declarations ([47289fc](https://github.com/brc-dd/prettier-plugin-vitepress/commit/47289fca47dc277390dd1c03a0d346d1ea93a124))
+
 ## [0.0.5](https://github.com/brc-dd/prettier-plugin-vitepress/compare/v0.0.4...v0.0.5) (2024-12-02)
 
 ### Bug Fixes
