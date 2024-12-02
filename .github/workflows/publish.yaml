@@ -19,6 +19,6 @@ jobs:
           registry-url: https://registry.npmjs.org
       - uses: denoland/setup-deno@v2
       - run: deno task build
-      - run: cd dist && npm publish
+      - run: cd dist && npm publish --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
