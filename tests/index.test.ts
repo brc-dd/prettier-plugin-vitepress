@@ -4,7 +4,7 @@ import { assertEquals } from '@std/assert'
 
 Deno.test('plugin', async (t) => {
   await t.step('should format vue in markdown', async () => {
-    const code = `
+    const code = `\
 ---
 yaml:  frontmatter
 ---
@@ -86,7 +86,7 @@ attrs {target="_self"  #id}
 attrs {target="_self"}
 `
 
-    const expected = `
+    const expected = `\
 ---
 yaml: frontmatter
 ---
@@ -190,7 +190,7 @@ comment
 
 attrs {target="_self" #id}
 attrs {target="_self"}
-`.trimStart()
+`
 
     const result = await prettier.format(code, {
       parser: 'markdown',

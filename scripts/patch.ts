@@ -24,7 +24,7 @@ await ensureDir('vendor')
 await Deno.writeTextFile('./vendor/prettier-plugin-markdown.js', transformed)
 await Deno.writeTextFile(
   './vendor/prettier-plugin-markdown.d.ts',
-  `
+  `\
 import type { Parser, Plugin, Printer } from 'prettier'
 
 declare const md: Plugin & {
@@ -33,5 +33,5 @@ declare const md: Plugin & {
 }
 
 export default md
-`.trimStart(),
+`,
 )
