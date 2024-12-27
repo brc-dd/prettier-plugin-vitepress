@@ -84,6 +84,13 @@ comment
 
 attrs {target="_self"  #id}
 attrs {target="_self"}
+
+## 13
+
+<div>
+</div>
+<div>
+</div>
 `
 
     const expected = `\
@@ -190,6 +197,11 @@ comment
 
 attrs {target="_self" #id}
 attrs {target="_self"}
+
+## 13
+
+<div></div>
+<div></div>
 `
 
     const result = await prettier.format(code, {

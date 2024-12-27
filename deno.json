@@ -43,13 +43,13 @@
     "singleQuote": true
   },
   "imports": {
-    "@ast-grep/napi": "npm:@ast-grep/napi@^0.31.0",
-    "@luca/esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@^0.11.0",
-    "@std/assert": "jsr:@std/assert@^1.0.8",
-    "@std/fs": "jsr:@std/fs@^1.0.6",
-    "esbuild": "npm:esbuild@^0.24.0",
-    "prettier": "npm:prettier@^3.4.1",
+    "@ast-grep/napi": "npm:@ast-grep/napi@^0.32.2",
+    "@luca/esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@^0.11.1",
+    "@std/assert": "jsr:@std/assert@^1.0.10",
+    "@std/fs": "jsr:@std/fs@^1.0.8",
+    "esbuild": "npm:esbuild@^0.24.2",
+    "prettier": "npm:prettier@^3.4.2",
     "typescript": "npm:typescript@^5.7.2",
-    "unplugin-isolated-decl": "npm:unplugin-isolated-decl@^0.9.1"
+    "unplugin-isolated-decl": "npm:unplugin-isolated-decl@^0.10.2"
   }
 }
