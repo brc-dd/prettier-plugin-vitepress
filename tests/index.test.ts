@@ -150,9 +150,7 @@ h1 {
 
 ## 7
 
-Inline vue code - longer line - <strong> {{
-  item.name
-}} </strong> <em> italic </em>
+Inline vue code - longer line - <strong> {{ item.name }} </strong> <em> italic </em>
 
 Shorter line - {{ item.name }}
 
@@ -171,7 +169,7 @@ comment
 <div>
 <Example>
 <template #example>
-<progress class="unstyled"></progress>
+  <progress class="unstyled"></progress>
 </template>
 <template #code>
 
@@ -213,5 +211,6 @@ attrs {target="_self"}
   })
 })
 
-// TODO:
-// - handle markdown in vue (tc 9)
+// FIXME:
+// - printWidth is not respected in certain cases (tc 7)
+// - edge cases of tc 9

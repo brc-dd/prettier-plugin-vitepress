@@ -1,11 +1,12 @@
 import type { Literal } from 'npm:@types/unist@2'
 import type { AstPath, Plugin } from 'prettier'
-import { type builders, printer, utils } from 'prettier/doc'
+import { printer } from 'prettier/doc'
 
 // @deno-types="../vendor/prettier-plugin-markdown.d.ts"
 import md from '../vendor/prettier-plugin-markdown.js'
 
 const wrappedRE = /^\s*<(script|style)\b/
+const markerRE = /\s*\uFFFF/
 
 const plugin: Plugin = {
   ...md,
@@ -20,6 +21,7 @@ const plugin: Plugin = {
 
       embed: (path: AstPath<Literal<string>>, options) => {
         const { node } = path
+        const { useTabs = false, tabWidth = 2 } = options
 
         if (node.type === 'word' && (node.value.at(0) === '{' || node.value.at(-1) === '}')) {
           // attr (FIXME: do better parsing)
@@ -37,42 +39,24 @@ const plugin: Plugin = {
             isWrapped ? `<template>\n${node.value}\n\uFFFF\n</template>` : node.value,
             { parser: 'vue' },
           )
+
           if (!isWrapped) return doc0
 
-          const doc1 = findGroup(doc0, (doc) => Array.isArray(doc.contents))
-          if (!doc1) return doc0
+          const { formatted } = printer.printDocToString(doc0, options as Required<typeof options>)
+          const contents = formatted.slice(11).split(markerRE)
 
-          const doc2 = findGroup(doc1, (doc) => doc1 !== doc)
-          if (!doc2) return doc0
+          let indent = useTabs ? 1 : tabWidth
 
-          doc1.contents = doc2.contents
+          if (contents[1] !== '\n</template>') {
+            const lastLine = contents[0]!.split('\n').at(-1)!
+            indent = lastLine.match(useTabs ? /^\t*/ : /^ */)![0].length
+          }
 
-          const { formatted } = printer.printDocToString(doc1, options as Required<typeof options>)
-          if (!formatted.includes('\uFFFF')) return doc0
-
-          return node.value // skip formatting something went wrong
-
-          // markdown in vue
-          // return formatted.split('\uFFFF')[0]?.replace(/^\s{2}/gm, '')
+          return contents[0]!.replace(new RegExp(`^${useTabs ? '\t' : ' '}{0,${indent}}`, 'gm'), '')
         }
       },
     },
   },
-}
-
-function findGroup(
-  doc: builders.Doc,
-  predicate: (doc: builders.Group) => boolean,
-): builders.Group | undefined {
-  let result: builders.Group | undefined
-  utils.traverseDoc(doc, (d) => {
-    if (typeof d === 'object' && !Array.isArray(d) && d.type === 'group' && predicate(d)) {
-      result = d
-      return false
-    }
-    return true
-  })
-  return result
 }
 
 export default plugin
