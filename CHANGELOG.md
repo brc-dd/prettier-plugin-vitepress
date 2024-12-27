@@ -1,3 +1,9 @@
+## [0.0.7](https://github.com/brc-dd/prettier-plugin-vitepress/compare/v0.0.6...v0.0.7) (2024-12-27)
+
+### Bug Fixes
+
+- handle multiple adjacent roots ([fc2d758](https://github.com/brc-dd/prettier-plugin-vitepress/commit/fc2d75878d5217a4a57a2cfd628c5011dab0ebb2))
+
 ## [0.0.6](https://github.com/brc-dd/prettier-plugin-vitepress/compare/v0.0.5...v0.0.6) (2024-12-02)
 
 ### Features
