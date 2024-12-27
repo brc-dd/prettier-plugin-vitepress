@@ -53,6 +53,12 @@ Comments <!-- comment -->
 comment
 -->
 
+  <!-- <span
+    :style="{
+      '--vp-hue': hue,
+    }"
+  ></span> -->
+
 ## 9
 
 <div>
@@ -163,6 +169,12 @@ Comments <!-- comment -->
 <!-- multiline
 comment
 -->
+
+  <!-- <span
+    :style="{
+      '--vp-hue': hue,
+    }"
+  ></span> -->
 
 ## 9
 
