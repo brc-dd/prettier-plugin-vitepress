@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-vitepress",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "a prettier plugin to format vue in markdown syntax used in vitepress",
   "keywords": [
     "prettier",

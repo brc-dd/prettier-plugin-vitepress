@@ -1,3 +1,9 @@
+## [0.0.8](https://github.com/brc-dd/prettier-plugin-vitepress/compare/v0.0.7...v0.0.8) (2024-12-28)
+
+### Bug Fixes
+
+- don't dedent contents of html comments ([90c1202](https://github.com/brc-dd/prettier-plugin-vitepress/commit/90c12028c01faff09f23c1cb05c95f250ac07cfb))
+
 ## [0.0.7](https://github.com/brc-dd/prettier-plugin-vitepress/compare/v0.0.6...v0.0.7) (2024-12-27)
 
 ### Bug Fixes
