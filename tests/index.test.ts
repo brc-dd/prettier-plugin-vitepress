@@ -170,7 +170,7 @@ Comments <!-- comment -->
 comment
 -->
 
-  <!-- <span
+<!-- <span
     :style="{
       '--vp-hue': hue,
     }"

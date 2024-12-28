@@ -52,7 +52,23 @@ const plugin: Plugin = {
             indent = lastLine.match(useTabs ? /^\t*/ : /^ */)![0].length
           }
 
-          return contents[0]!.replace(new RegExp(`^${useTabs ? '\t' : ' '}{0,${indent}}`, 'gm'), '')
+          const comments: { placeholder: string; content: string }[] = []
+          let commentIndex = 0
+
+          const dedentedContent = contents[0]!
+            .replace(/<!--([^]*?)-->/g, (match) => {
+              const placeholder = `__HTML_COMMENT_${commentIndex++}__`
+              comments.push({ placeholder, content: match })
+              return placeholder
+            })
+            .replace(new RegExp(`^${useTabs ? '\t' : ' '}{0,${indent}}`, 'gm'), '')
+
+          let finalContent = dedentedContent
+          comments.forEach(({ placeholder, content }) => {
+            finalContent = finalContent.replace(placeholder, content)
+          })
+
+          return finalContent
         }
       },
     },
