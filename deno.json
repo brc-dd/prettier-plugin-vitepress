@@ -44,10 +44,10 @@
     "singleQuote": true
   },
   "imports": {
-    "#/": "https://raw.githubusercontent.com/globalbrain/hado/v0.9.4/scripts/",
-    "@ast-grep/napi": "npm:@ast-grep/napi@^0.36.1",
-    "@std/assert": "jsr:@std/assert@^1.0.11",
-    "@std/fs": "jsr:@std/fs@^1.0.14",
+    "#/": "https://raw.githubusercontent.com/globalbrain/hado/v0.10.0/scripts/",
+    "@ast-grep/napi": "npm:@ast-grep/napi@^0.37.0",
+    "@std/assert": "jsr:@std/assert@^1.0.13",
+    "@std/fs": "jsr:@std/fs@^1.0.17",
     "prettier": "npm:prettier@^3.5.3"
   },
   "build": {

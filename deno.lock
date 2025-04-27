@@ -1,64 +1,64 @@
 {
   "version": "4",
   "specifiers": {
-    "jsr:@std/assert@^1.0.11": "1.0.11",
-    "jsr:@std/fs@^1.0.14": "1.0.14",
-    "jsr:@std/internal@^1.0.5": "1.0.5",
-    "jsr:@std/path@^1.0.8": "1.0.8",
-    "npm:@ast-grep/napi@~0.36.1": "0.36.1",
+    "jsr:@std/assert@^1.0.13": "1.0.13",
+    "jsr:@std/fs@^1.0.17": "1.0.17",
+    "jsr:@std/internal@^1.0.6": "1.0.6",
+    "jsr:@std/path@^1.0.9": "1.0.9",
+    "npm:@ast-grep/napi@0.37": "0.37.0",
     "npm:@types/unist@2": "2.0.11",
     "npm:prettier@^3.5.3": "3.5.3"
   },
   "jsr": {
-    "@std/assert@1.0.11": {
-      "integrity": "2461ef3c368fe88bc60e186e7744a93112f16fd110022e113a0849e94d1c83c1",
+    "@std/assert@1.0.13": {
+      "integrity": "ae0d31e41919b12c656c742b22522c32fb26ed0cba32975cb0de2a273cb68b29",
       "dependencies": [
         "jsr:@std/internal"
       ]
     },
-    "@std/fs@1.0.14": {
-      "integrity": "1e84bf0b95fe08f41f1f4aea9717bbf29f45408a56ce073b0114474ce1c9fccf",
+    "@std/fs@1.0.17": {
+      "integrity": "1c00c632677c1158988ef7a004cb16137f870aafdb8163b9dce86ec652f3952b",
       "dependencies": [
         "jsr:@std/path"
       ]
     },
-    "@std/internal@1.0.5": {
-      "integrity": "54a546004f769c1ac9e025abd15a76b6671ddc9687e2313b67376125650dc7ba"
+    "@std/internal@1.0.6": {
+      "integrity": "9533b128f230f73bd209408bb07a4b12f8d4255ab2a4d22a1fd6d87304aca9a4"
     },
-    "@std/path@1.0.8": {
-      "integrity": "548fa456bb6a04d3c1a1e7477986b6cffbce95102d0bb447c67c4ee70e0364be"
+    "@std/path@1.0.9": {
+      "integrity": "260a49f11edd3db93dd38350bf9cd1b4d1366afa98e81b86167b4e3dd750129e"
     }
   },
   "npm": {
-    "@ast-grep/napi-darwin-arm64@0.36.1": {
-      "integrity": "sha512-hLceB0+nTMzmp+85ffJdmwUYcH9n+9ca/dj4nBxXjWBEPhcsA4FOlxCn/dltxhIsdb9eVL8ffATyu7yO96Xjcw=="
+    "@ast-grep/napi-darwin-arm64@0.37.0": {
+      "integrity": "sha512-QAiIiaAbLvMEg/yBbyKn+p1gX2/FuaC0SMf7D7capm/oG4xGMzdeaQIcSosF4TCxxV+hIH4Bz9e4/u7w6Bnk3Q=="
     },
-    "@ast-grep/napi-darwin-x64@0.36.1": {
-      "integrity": "sha512-bt5FZNIRE/FmwD29t1LMMsbWxxqgAGabCOSWxbFKBPWqYPW48sG0FfEP2x3P6vIMmNrNNaEy0YwiwaZVR8M0dQ=="
+    "@ast-grep/napi-darwin-x64@0.37.0": {
+      "integrity": "sha512-zvcvdgekd4ySV3zUbUp8HF5nk5zqwiMXTuVzTUdl/w08O7JjM6XPOIVT+d2o/MqwM9rsXdzdergY5oY2RdhSPA=="
     },
-    "@ast-grep/napi-linux-arm64-gnu@0.36.1": {
-      "integrity": "sha512-6xAs1AGqll9cZdinQIdEo8WA6dEgOSKGfk0HLmXO0R6Z9q/i17oRtLdud+iVNUVBjyFxrOrTYUGxzwwbfrh2Mg=="
+    "@ast-grep/napi-linux-arm64-gnu@0.37.0": {
+      "integrity": "sha512-L7Sj0lXy8X+BqSMgr1LB8cCoWk0rericdeu+dC8/c8zpsav5Oo2IQKY1PmiZ7H8IHoFBbURLf8iklY9wsD+cyA=="
     },
-    "@ast-grep/napi-linux-arm64-musl@0.36.1": {
-      "integrity": "sha512-qBg0id6C138OkD68zuaa37hrNE01NKJVaV+VZ+7lYIdM7ovwq4D3cgvKsxz1iWUrXsQIX+RPQfU4MoYJdRKYRQ=="
+    "@ast-grep/napi-linux-arm64-musl@0.37.0": {
+      "integrity": "sha512-LF9sAvYy6es/OdyJDO3RwkX3I82Vkfsng1sqUBcoWC1jVb1wX5YVzHtpQox9JrEhGl+bNp7FYxB4Qba9OdA5GA=="
     },
-    "@ast-grep/napi-linux-x64-gnu@0.36.1": {
-      "integrity": "sha512-DJnOF0nETsFCPlwRSPwiddja/Pe6yyQmgvQMZRWR3jBcqNeytL6MwVBs7bLyiGPeRNgB/Fk/V4lfVjPV8OYi6w=="
+    "@ast-grep/napi-linux-x64-gnu@0.37.0": {
+      "integrity": "sha512-TViz5/klqre6aSmJzswEIjApnGjJzstG/SE8VDWsrftMBMYt2PTu3MeluZVwzSqDao8doT/P+6U11dU05UOgxw=="
     },
-    "@ast-grep/napi-linux-x64-musl@0.36.1": {
-      "integrity": "sha512-vXrqWq9KZssTrJa47mDv8uPk7+ZLjQZScQjpbzB/icYj+VdhDAMxRC2ZrCTaSP+FQzibtZQdlEe3lGm4DGvuKA=="
+    "@ast-grep/napi-linux-x64-musl@0.37.0": {
+      "integrity": "sha512-/BcCH33S9E3ovOAEoxYngUNXgb+JLg991sdyiNP2bSoYd30a9RHrG7CYwW6fMgua3ijQ474eV6cq9yZO1bCpXg=="
     },
-    "@ast-grep/napi-win32-arm64-msvc@0.36.1": {
-      "integrity": "sha512-y02toJitm47Zv6zeCZnvzU/YyACfim8xcZx7+V9dJr5H8DSd6bJhnCIEhyPqsDJBhgh0i+saRmFr12rb6Fmjtw=="
+    "@ast-grep/napi-win32-arm64-msvc@0.37.0": {
+      "integrity": "sha512-TjQA4cFoIEW2bgjLkaL9yqT4XWuuLa5MCNd0VCDhGRDMNQ9+rhwi9eLOWRaap3xzT7g+nlbcEHL3AkVCD2+b3A=="
     },
-    "@ast-grep/napi-win32-ia32-msvc@0.36.1": {
-      "integrity": "sha512-I4oVIFX9dhzEI3fz7GYlj1Khw8w6Kk+2r8cuyqI9Z+U+FUZZFHr3ZWyXhJdrsfuJ9AmUeJLlydu6zAyCUlEvow=="
+    "@ast-grep/napi-win32-ia32-msvc@0.37.0": {
+      "integrity": "sha512-uNmVka8fJCdYsyOlF9aZqQMLTatEYBynjChVTzUfFMDfmZ0bihs/YTqJVbkSm8TZM7CUX82apvn50z/dX5iWRA=="
     },
-    "@ast-grep/napi-win32-x64-msvc@0.36.1": {
-      "integrity": "sha512-ofuHLFdaVMsPoxJsl1cgIlrOUYoh3kF6fiSKSbCbL80PRCpJXo8J+EwxsF033hK7bwMy40FohG4guz5a4B2tYA=="
+    "@ast-grep/napi-win32-x64-msvc@0.37.0": {
+      "integrity": "sha512-vCiFOT3hSCQuHHfZ933GAwnPzmL0G04JxQEsBRfqONywyT8bSdDc/ECpAfr3S9VcS4JZ9/F6tkePKW/Om2Dq2g=="
     },
-    "@ast-grep/napi@0.36.1": {
-      "integrity": "sha512-Ptfwhmlh9Xc5PunM1/X9tcmudxTAOIXxsDdvkSM4h9z/o+OrqL6DYgXOyPxo3mWFln/+oHHIB65jtNQCoo6Niw==",
+    "@ast-grep/napi@0.37.0": {
+      "integrity": "sha512-Hb4o6h1Pf6yRUAX07DR4JVY7dmQw+RVQMW5/m55GoiAT/VRoKCWBtIUPPOnqDVhbx1Cjfil9b6EDrgJsUAujEQ==",
       "dependencies": [
         "@ast-grep/napi-darwin-arm64",
         "@ast-grep/napi-darwin-x64",
@@ -80,9 +80,9 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@std/assert@^1.0.11",
-      "jsr:@std/fs@^1.0.14",
-      "npm:@ast-grep/napi@~0.36.1",
+      "jsr:@std/assert@^1.0.13",
+      "jsr:@std/fs@^1.0.17",
+      "npm:@ast-grep/napi@0.37",
       "npm:prettier@^3.5.3"
     ]
   }
