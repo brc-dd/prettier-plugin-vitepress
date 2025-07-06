@@ -48,6 +48,8 @@
     "@ast-grep/napi": "npm:@ast-grep/napi@^0.37.0",
     "@std/assert": "jsr:@std/assert@^1.0.13",
     "@std/fs": "jsr:@std/fs@^1.0.17",
+    "@vue/compiler-core": "npm:@vue/compiler-core@^3.5.17",
+    "@vue/compiler-sfc": "npm:@vue/compiler-sfc@^3.5.17",
     "prettier": "npm:prettier@^3.5.3"
   },
   "build": {
