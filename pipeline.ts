@@ -28,7 +28,9 @@ const sfc = parse(wrapped)
 const templateAst = sfc.descriptor.template?.ast
 if (!templateAst) throw new Error('Failed to parse template')
 
-const replacements: string[] = []
+const replacements: string[] = [
+  '\n',
+]
 
 function walk(node: ParentNode | TemplateChildNode): string {
   if (node.type !== NodeTypes.ELEMENT && node.type !== NodeTypes.ROOT) {
@@ -44,9 +46,19 @@ function walk(node: ParentNode | TemplateChildNode): string {
   let source = node.type === NodeTypes.ROOT ? sfc.descriptor.template!.content : node.loc.source
 
   if (node.children?.length) {
+    let hasMarkdown = false
+
     for (const child of node.children) {
       const original = child.loc.source
-      const replacement = walk(child)
+      let replacement = walk(child)
+
+      if (!hasMarkdown && original.startsWith('\n\n')) {
+        replacement = `\n<M0>\n${replacement}`
+        hasMarkdown = true
+      }
+      if (child === node.children.at(-1) && hasMarkdown) {
+        replacement = `${replacement}\n</M0>\n`
+      }
 
       source = source.replace(original, replacement)
     }
@@ -57,15 +69,23 @@ function walk(node: ParentNode | TemplateChildNode): string {
 
 let formatted = `<template>${walk(templateAst)}</template>`
 
-formatted = await prettier.format(formatted, { parser: 'vue', endOfLine: 'lf' })
+formatted = await prettier.format(formatted, {
+  parser: 'vue',
+  endOfLine: 'lf',
+  useTabs: false,
+  tabWidth: 2,
+})
 
-formatted = formatted.replaceAll(/<M(\d+) \/>/g, (_, index) => {
-  return replacements[Number(index)]!
+// TODO: replace M0 markers with blank lines and dedent inner content, handle nesting too
+// then dedent outer html content to max 2 spaces to avoid rendering them as code blocks
+
+formatted = formatted.replaceAll(/<M(\d+) \/>/g, (match, index) => {
+  return replacements[Number(index)] ?? match
 })
 
 formatted = formatted
   .replace(/^\s*<template>|<\/template>\s*$/g, '')
-  .replace(/^ {2}| +$/gm, '')
+  .replace(/^ {2}/gm, '')
 
 formatted = await prettier.format(formatted, { parser: 'markdown' })
 
