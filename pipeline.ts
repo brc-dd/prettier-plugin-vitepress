@@ -61,9 +61,8 @@ formatted = formatted.replaceAll(/<M(\d+) \/>/g, (_, index) => {
 })
 
 formatted = formatted
-  .slice('<template>'.length, -'</template>\n'.length)
-  .replace(/^ {2}/gm, '')
-  .replace(/ +$/gm, '')
+  .replace(/^\s*<template>|<\/template>\s*$/g, '')
+  .replace(/^ {2}| +$/gm, '')
 
 formatted = await prettier.format(formatted, { parser: 'markdown' })
 
