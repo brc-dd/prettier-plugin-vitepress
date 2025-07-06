@@ -52,7 +52,7 @@ function addMarkers(md: string, replacements: string[]): string {
         const original = child.loc.source
         let replacement = walk(child)
 
-        if (!hasMarkdown && original.startsWith('\n\n')) {
+        if (node.type === NodeTypes.ELEMENT && !hasMarkdown && original.startsWith('\n\n')) {
           replacement = `\n<M0>\n${replacement}`
           hasMarkdown = true
         }
@@ -117,7 +117,7 @@ function removeMarkers(vue: string, replacements: string[]): string {
     return { source, dedent }
   }
 
-  return walk(templateAst).source
+  return walk(templateAst).source.replace(/^ {2}/gm, '')
 }
 
 async function format(md: string): Promise<string> {
