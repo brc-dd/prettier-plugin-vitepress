@@ -30,12 +30,14 @@ if (!templateAst) throw new Error('Failed to parse template')
 
 const replacements: string[] = []
 
-function processNode(node: ParentNode | TemplateChildNode): string {
+function walk(node: ParentNode | TemplateChildNode): string {
   if (node.type !== NodeTypes.ELEMENT && node.type !== NodeTypes.ROOT) {
     const source = node.loc.source
     const start = /^\s*/.exec(source)?.[0] || ''
     const end = /\s*$/.exec(source)?.[0] || ''
+
     replacements.push(source.slice(start.length, source.length - end.length))
+
     return `${start}<M${replacements.length - 1} />${end}`
   }
 
@@ -44,7 +46,8 @@ function processNode(node: ParentNode | TemplateChildNode): string {
   if (node.children?.length) {
     for (const child of node.children) {
       const original = child.loc.source
-      const replacement = processNode(child)
+      const replacement = walk(child)
+
       source = source.replace(original, replacement)
     }
   }
@@ -52,7 +55,7 @@ function processNode(node: ParentNode | TemplateChildNode): string {
   return source
 }
 
-let formatted = `<template>${processNode(templateAst)}</template>`
+let formatted = `<template>${walk(templateAst)}</template>`
 
 formatted = await prettier.format(formatted, { parser: 'vue', endOfLine: 'lf' })
 
