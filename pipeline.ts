@@ -34,6 +34,7 @@ function addMarkers(md: string, replacements: string[]): string {
     if (node.type !== NodeTypes.ELEMENT && node.type !== NodeTypes.ROOT) {
       const source = node.loc.source
       if (source.trim() === '') return source
+      if (node.type === NodeTypes.INTERPOLATION) return source
 
       const start = /^\s*/.exec(source)?.[0] || ''
       const end = /\s*$/.exec(source)?.[0] || ''
