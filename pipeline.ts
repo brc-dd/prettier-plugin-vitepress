@@ -71,16 +71,48 @@ function removeMarkers(vue: string, replacements: string[]): string {
   const templateAst = sfc.descriptor.template?.ast
   if (!templateAst) throw new Error('Failed to parse template')
 
-  function walk(_node: ParentNode | TemplateChildNode): { source: string; dedent: boolean } {
-    // STUB
-    const source = vue.replaceAll(/<M(\d+) \/>/g, (match, index) => {
-      return replacements[Number(index)] ?? match
-    }).replace(/^\s*<template>/, '').replace(/<\/template>\s*$/, '')
+  function walk(node: ParentNode | TemplateChildNode): { source: string; dedent: boolean } {
+    if (node.type !== NodeTypes.ELEMENT && node.type !== NodeTypes.ROOT) {
+      return { source: node.loc.source, dedent: false }
+    }
 
-    return { source, dedent: true }
+    let source = node.type === NodeTypes.ROOT ? sfc.descriptor.template!.content : node.loc.source
+    let dedent = false
+
+    if (node.type === NodeTypes.ELEMENT) {
+      const i = /^M(\d+)$/.exec(node.tag)
+      if (i) {
+        const index = Number(i[1])
+        if (index !== 0 && index < replacements.length) {
+          return { source: replacements[index]!, dedent: false }
+        }
+      }
+    }
+
+    if (node.children?.length) {
+      for (const child of node.children) {
+        const original = child.loc.source
+
+        let { source: replacement, dedent: _dedent } = walk(child)
+        dedent ||= _dedent
+
+        if (child.type === NodeTypes.ELEMENT && child.tag === 'M0') {
+          replacement = replacement.replace(/^<M0>/, '\n').replace(/<\/M0>$/, '\n')
+          dedent = true
+        }
+
+        source = source.replace(original, replacement)
+      }
+
+      if (dedent) {
+        source = source.replace(/^ {2}/gm, '')
+      }
+    }
+
+    return { source, dedent }
   }
 
-  return walk(templateAst).source.replace(/^ {2}/gm, '')
+  return walk(templateAst).source
 }
 
 async function format(md: string): Promise<string> {
