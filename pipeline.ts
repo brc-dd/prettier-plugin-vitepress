@@ -2,8 +2,6 @@ import { NodeTypes, type ParentNode, type TemplateChildNode } from '@vue/compile
 import { parse } from '@vue/compiler-sfc'
 import prettier from 'prettier'
 
-console.time('formatting')
-
 const md = `\
 # Hello
 
@@ -21,74 +19,87 @@ Normal **markdown** content.
 *markdown* content with <strong>inline  html</strong>.
 `
 
-const wrapped = `<template>${md}</template>`
-  .replace(/\r\n/g, '\n')
+function addMarkers(md: string, replacements: string[]): string {
+  const wrapped = `<template>${md}</template>`
+    .replace(/\r\n/g, '\n')
 
-const sfc = parse(wrapped)
-const templateAst = sfc.descriptor.template?.ast
-if (!templateAst) throw new Error('Failed to parse template')
+  const sfc = parse(wrapped)
+  const templateAst = sfc.descriptor.template?.ast
+  if (!templateAst) throw new Error('Failed to parse template')
 
-const replacements: string[] = [
-  '\n',
-]
+  function walk(node: ParentNode | TemplateChildNode): string {
+    if (node.type !== NodeTypes.ELEMENT && node.type !== NodeTypes.ROOT) {
+      const source = node.loc.source
+      const start = /^\s*/.exec(source)?.[0] || ''
+      const end = /\s*$/.exec(source)?.[0] || ''
 
-function walk(node: ParentNode | TemplateChildNode): string {
-  if (node.type !== NodeTypes.ELEMENT && node.type !== NodeTypes.ROOT) {
-    const source = node.loc.source
-    const start = /^\s*/.exec(source)?.[0] || ''
-    const end = /\s*$/.exec(source)?.[0] || ''
+      replacements.push(source.slice(start.length, source.length - end.length))
 
-    replacements.push(source.slice(start.length, source.length - end.length))
-
-    return `${start}<M${replacements.length - 1} />${end}`
-  }
-
-  let source = node.type === NodeTypes.ROOT ? sfc.descriptor.template!.content : node.loc.source
-
-  if (node.children?.length) {
-    let hasMarkdown = false
-
-    for (const child of node.children) {
-      const original = child.loc.source
-      let replacement = walk(child)
-
-      if (!hasMarkdown && original.startsWith('\n\n')) {
-        replacement = `\n<M0>\n${replacement}`
-        hasMarkdown = true
-      }
-      if (child === node.children.at(-1) && hasMarkdown) {
-        replacement = `${replacement}\n</M0>\n`
-      }
-
-      source = source.replace(original, replacement)
+      return `${start}<M${replacements.length - 1} />${end}`
     }
+
+    let source = node.type === NodeTypes.ROOT ? sfc.descriptor.template!.content : node.loc.source
+
+    if (node.children?.length) {
+      let hasMarkdown = false
+
+      for (const child of node.children) {
+        const original = child.loc.source
+        let replacement = walk(child)
+
+        if (!hasMarkdown && original.startsWith('\n\n')) {
+          replacement = `\n<M0>\n${replacement}`
+          hasMarkdown = true
+        }
+
+        if (child === node.children.at(-1) && hasMarkdown) {
+          replacement = `${replacement}\n</M0>\n`
+        }
+
+        source = source.replace(original, replacement)
+      }
+    }
+
+    return source
   }
 
-  return source
+  return walk(templateAst)
 }
 
-let formatted = `<template>${walk(templateAst)}</template>`
+function removeMarkers(vue: string, replacements: string[]): string {
+  const sfc = parse(vue)
+  const templateAst = sfc.descriptor.template?.ast
+  if (!templateAst) throw new Error('Failed to parse template')
 
-formatted = await prettier.format(formatted, {
-  parser: 'vue',
-  endOfLine: 'lf',
-  useTabs: false,
-  tabWidth: 2,
-})
+  function walk(_node: ParentNode | TemplateChildNode): { source: string; dedent: boolean } {
+    // STUB
+    const source = vue.replaceAll(/<M(\d+) \/>/g, (match, index) => {
+      return replacements[Number(index)] ?? match
+    }).replace(/^\s*<template>/, '').replace(/<\/template>\s*$/, '')
 
-// TODO: replace M0 markers with blank lines and dedent inner content, handle nesting too
-// then dedent outer html content to max 2 spaces to avoid rendering them as code blocks
+    return { source, dedent: true }
+  }
 
-formatted = formatted.replaceAll(/<M(\d+) \/>/g, (match, index) => {
-  return replacements[Number(index)] ?? match
-})
+  return walk(templateAst).source.replace(/^ {2}/gm, '')
+}
 
-formatted = formatted
-  .replace(/^\s*<template>|<\/template>\s*$/g, '')
-  .replace(/^ {2}/gm, '')
+async function format(md: string): Promise<string> {
+  const replacements = ['\n']
 
-formatted = await prettier.format(formatted, { parser: 'markdown' })
+  let formatted = `<template>${addMarkers(md, replacements)}</template>`
+  formatted = await prettier.format(formatted, {
+    parser: 'vue',
+    endOfLine: 'lf',
+    useTabs: false,
+    tabWidth: 2,
+  })
 
-console.log(formatted)
+  formatted = removeMarkers(formatted, replacements)
+  formatted = await prettier.format(formatted, { parser: 'markdown' })
 
+  return formatted
+}
+
+console.time('formatting')
+console.log(await format(md))
 console.timeEnd('formatting')
