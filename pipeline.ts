@@ -3,20 +3,23 @@ import { parse } from '@vue/compiler-sfc'
 import prettier from 'prettier'
 
 const md = `\
-# Hello
+#  *Test*
 
-<Foo>
-<Bar>
-<Baz>
+## 1
 
-*markdown* content with **HTML**.
-</Baz>
-</Bar>
-</Foo>
+<div> <h1 v-if="showHeader">Conditional Header</h1> <p v-else>No Header</p> <p>This is a Vue 3 template</p> <button @click="clickHandler">Click Me</button> </div>
 
-Normal **markdown** content.
+## 2
 
-*markdown* content with <strong>inline  html</strong>.
+ <template v-for="item in items" :key="item.id"> <p>{{  item.name  }}</p> </template>
+
+## 3
+
+  <form @submit.prevent="submitForm"> <input v-model="name" placeholder="Enter name" /> <input v-model="age" type="number" placeholder="Enter age" /> <button type="submit">Submit</button> </form>
+
+## 4
+
+   <div> <ChildComponent> <template #[dynamicSlotName] v-slot="{ text, count }"> {{ text }} {{ count }} </template> </ChildComponent> </div>
 `
 
 function addMarkers(md: string, replacements: string[]): string {
@@ -30,6 +33,8 @@ function addMarkers(md: string, replacements: string[]): string {
   function walk(node: ParentNode | TemplateChildNode): string {
     if (node.type !== NodeTypes.ELEMENT && node.type !== NodeTypes.ROOT) {
       const source = node.loc.source
+      if (source.trim() === '') return source
+
       const start = /^\s*/.exec(source)?.[0] || ''
       const end = /\s*$/.exec(source)?.[0] || ''
 
