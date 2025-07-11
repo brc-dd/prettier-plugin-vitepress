@@ -3,6 +3,10 @@ import { parse } from '@vue/compiler-sfc'
 import prettier from 'prettier'
 
 const md = `\
+---
+yaml:  frontmatter
+---
+
 #  *Test*
 
 ## 1
@@ -20,6 +24,69 @@ const md = `\
 ## 4
 
    <div> <ChildComponent> <template #[dynamicSlotName] v-slot="{ text, count }"> {{ text }} {{ count }} </template> </ChildComponent> </div>
+
+## 7
+
+Inline vue code - longer line - <strong>  {{  item.name  }}  </strong> <em>  italic  </em>
+
+Shorter line - {{
+  item.name
+}}
+
+<pre>  code  </pre>
+
+<pre>
+  shouldn't be dedented
+</pre>
+
+## 8
+
+Comments <!-- comment -->
+
+<!-- multiline
+comment
+-->
+
+  <!-- <span
+    :style="{
+      '--vp-hue': hue,
+    }"
+  ></span> -->
+
+## 9
+
+<div>
+<Example>
+<template #example>
+<progress class="unstyled"></progress>
+</template>
+<template #code>
+
+foo
+
+</template>
+</Example>
+</div>
+
+## 10
+
+- export \`foo()\` (some long text here, this should not be treated as es export statement)
+
+## 11
+
+bar
+
+## 12
+
+attrs {target="_self"  #id}
+attrs {target="_self"}
+
+## 13
+
+<div>
+</div>
+<div>
+</div>
 `
 
 function addMarkers(md: string, replacements: string[]): string {
@@ -33,8 +100,7 @@ function addMarkers(md: string, replacements: string[]): string {
   function walk(node: ParentNode | TemplateChildNode): string {
     if (node.type !== NodeTypes.ELEMENT && node.type !== NodeTypes.ROOT) {
       const source = node.loc.source
-      if (source.trim() === '') return source
-      if (node.type === NodeTypes.INTERPOLATION) return source
+      if (source.trim() === '' || node.type === NodeTypes.INTERPOLATION) return source
 
       const start = /^\s*/.exec(source)?.[0] || ''
       const end = /\s*$/.exec(source)?.[0] || ''
@@ -89,7 +155,7 @@ function removeMarkers(vue: string, replacements: string[]): string {
       const i = /^M(\d+)$/.exec(node.tag)
       if (i) {
         const index = Number(i[1])
-        if (index !== 0 && index < replacements.length) {
+        if (index && index < replacements.length) {
           return { source: replacements[index]!, dedent: false }
         }
       }
@@ -104,6 +170,7 @@ function removeMarkers(vue: string, replacements: string[]): string {
 
         if (child.type === NodeTypes.ELEMENT && child.tag === 'M0') {
           replacement = replacement.replace(/^<M0>/, '\n').replace(/<\/M0>$/, '\n')
+          console.log('dedent', replacement)
           dedent = true
         }
 
@@ -111,14 +178,15 @@ function removeMarkers(vue: string, replacements: string[]): string {
       }
 
       if (dedent) {
-        source = source.replace(/^ {2}/gm, '')
+        // source = source.replace(/^ {2}/gm, '')
       }
     }
 
     return { source, dedent }
   }
 
-  return walk(templateAst).source.replace(/^ {2}/gm, '')
+  const { source } = walk(templateAst)
+  return source.includes('\n') ? source.replace(/^ {2}/gm, '') : source
 }
 
 async function format(md: string): Promise<string> {
@@ -131,6 +199,8 @@ async function format(md: string): Promise<string> {
     useTabs: false,
     tabWidth: 2,
   })
+
+  console.log(JSON.stringify(formatted) + '\n\n')
 
   formatted = removeMarkers(formatted, replacements)
   formatted = await prettier.format(formatted, { parser: 'markdown' })
